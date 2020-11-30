@@ -1,0 +1,8 @@
+{
+	"SourceFiles": [
+		"D:\\Project\\ParkourGamePJ\\ParkourUnreal\\Platformer_PJ\\Source\\Platformer_PJ\\Platformer_PJ.Build.cs",
+		"D:\\Project\\ParkourGamePJ\\ParkourUnreal\\Platformer_PJ\\Source\\Platformer_PJ.Target.cs",
+		"D:\\Project\\ParkourGamePJ\\ParkourUnreal\\Platformer_PJ\\Source\\Platformer_PJEditor.Target.cs"
+	],
+	"EngineVersion": "4.25.4"
+}
