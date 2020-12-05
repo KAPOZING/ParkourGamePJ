@@ -3973,3 +3973,86 @@ LogConfig: Setting CVar [[r.setres:1280x720]]
 [2020.12.05-08.04.44:743][402]AssetCheck: New page: 애셋 저장: 애셋이 다수입니다.
 [2020.12.05-08.04.44:743][402]LogContentValidation: Display: World /Game/ThirdPersonCPP/Maps/ThirdPersonExampleMap.ThirdPersonExampleMap 유효성 검사
 [2020.12.05-08.04.44:743][402]LogContentValidation: Display: MapBuildDataRegistry /Game/ThirdPersonCPP/Maps/ThirdPersonExampleMap_BuiltData.ThirdPersonExampleMap_BuiltData 유효성 검사
+[2020.12.05-08.05.37:018][215]LogAssetEditorSubsystem: Opening Asset editor for Skeleton /Game/NewFolder/Character_Rad_Skeleton.Character_Rad_Skeleton
+[2020.12.05-08.05.37:023][215]LogActorComponent: RegisterComponentWithWorld: (/Engine/Transient.World_5:PersistentLevel.AnimationEditorPreviewActor_0.DebugSkelMeshComponent_0) Already registered. Aborting.
+[2020.12.05-08.05.37:116][215]LogSkeletalMesh: USkeletalMeshComponent::InitArticulated : Bodies already created (/Engine/Transient.World_5:PersistentLevel.AnimationEditorPreviewActor_0.DebugSkelMeshComponent_0) - call TermArticulated first.
+[2020.12.05-08.05.53:514][219]LogAssetEditorSubsystem: Opening Asset editor for SkeletalMesh /Game/NewFolder/Character_Rad.Character_Rad
+[2020.12.05-08.05.53:523][219]LogActorComponent: RegisterComponentWithWorld: (/Engine/Transient.World_6:PersistentLevel.AnimationEditorPreviewActor_0.DebugSkelMeshComponent_0) Already registered. Aborting.
+[2020.12.05-08.05.53:589][219]LogSkeletalMesh: USkeletalMeshComponent::InitArticulated : Bodies already created (/Engine/Transient.World_6:PersistentLevel.AnimationEditorPreviewActor_0.DebugSkelMeshComponent_0) - call TermArticulated first.
+[2020.12.05-08.05.54:648][272]LogAssetEditorSubsystem: Opening Asset editor for PhysicsAsset /Game/NewFolder/Character_Rad_PhysicsAsset.Character_Rad_PhysicsAsset
+[2020.12.05-08.05.54:813][272]LogContentBrowser: Native class hierarchy updated for 'PhysicsAssetEditor' in 0.0006 seconds. Added 8 classes and 3 folders.
+[2020.12.05-08.05.54:823][272]LogActorComponent: RegisterComponentWithWorld: (/Engine/Transient.World_7:PersistentLevel.AnimationEditorPreviewActor_0.PhysicsAssetEditorSkeletalMeshComponent_0) Already registered. Aborting.
+[2020.12.05-08.05.55:156][272]LogSlate: Took 0.014673 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-BoldCondensed.ttf' (158K)
+[2020.12.05-08.05.57:770][407]LogSlate: Window 'Character_Rad_PhysicsAsset' being destroyed
+[2020.12.05-08.05.57:778][407]LogSlate: Window 'Character_Rad_PhysicsAsset' being destroyed
+[2020.12.05-08.05.57:778][407]LogWorld: UWorld::CleanupWorld for World_5, bSessionEnded=true, bCleanupResources=true
+[2020.12.05-08.05.57:778][407]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2020.12.05-08.05.57:890][407]LogWorld: UWorld::CleanupWorld for World_6, bSessionEnded=true, bCleanupResources=true
+[2020.12.05-08.05.57:890][407]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2020.12.05-08.05.58:006][407]LogWorld: UWorld::CleanupWorld for World_7, bSessionEnded=true, bCleanupResources=true
+[2020.12.05-08.05.58:006][407]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2020.12.05-08.37.28:090][912]LogAssetEditorSubsystem: Opening Asset editor for Skeleton /Game/NewFolder/Character_Rad_Skeleton.Character_Rad_Skeleton
+[2020.12.05-08.37.28:096][912]LogActorComponent: RegisterComponentWithWorld: (/Engine/Transient.World_8:PersistentLevel.AnimationEditorPreviewActor_0.DebugSkelMeshComponent_0) Already registered. Aborting.
+[2020.12.05-08.37.28:190][912]LogSkeletalMesh: USkeletalMeshComponent::InitArticulated : Bodies already created (/Engine/Transient.World_8:PersistentLevel.AnimationEditorPreviewActor_0.DebugSkelMeshComponent_0) - call TermArticulated first.
+[2020.12.05-08.37.30:662][111]LogSlate: Window 'Character_Rad_Skeleton' being destroyed
+[2020.12.05-08.37.30:669][111]LogSlate: Window 'Character_Rad_Skeleton' being destroyed
+[2020.12.05-08.37.30:670][111]LogWorld: UWorld::CleanupWorld for World_8, bSessionEnded=true, bCleanupResources=true
+[2020.12.05-08.37.30:670][111]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2020.12.05-08.40.55:425][315]LogUObjectHash: Compacting FUObjectHashTables data took   0.74ms
+[2020.12.05-08.40.55:478][315]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/NewFolder/Character_Rad" FILE="../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Character_Rad.uasset" SILENT=true
+[2020.12.05-08.40.55:560][315]LogSavePackage: Moving '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Saved/Character_Rad68A719624FA4B552A442B0B549385739.tmp' to '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Character_Rad.uasset'
+[2020.12.05-08.40.55:566][315]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/NewFolder/Body_Mat" FILE="../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Body_Mat.uasset" SILENT=true
+[2020.12.05-08.40.55:573][315]LogSavePackage: Moving '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Saved/Body_MatD95766CD43B199F2C393F7BBFE6C8E27.tmp' to '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Body_Mat.uasset'
+[2020.12.05-08.40.55:580][315]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/NewFolder/Body_Texture" FILE="../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Body_Texture.uasset" SILENT=true
+[2020.12.05-08.40.55:607][315]LogSavePackage: Moving '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Saved/Body_TextureBD27F2A8466A8E44724B5B8FE148B4A0.tmp' to '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Body_Texture.uasset'
+[2020.12.05-08.40.55:613][315]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/NewFolder/Hoodie_Mat" FILE="../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Hoodie_Mat.uasset" SILENT=true
+[2020.12.05-08.40.55:621][315]LogSavePackage: Moving '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Saved/Hoodie_Mat8CCDD015428689642B9AA7B55B8D732B.tmp' to '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Hoodie_Mat.uasset'
+[2020.12.05-08.40.55:628][315]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/NewFolder/UpperCloth_Texture" FILE="../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/UpperCloth_Texture.uasset" SILENT=true
+[2020.12.05-08.40.55:647][315]LogSavePackage: Moving '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Saved/UpperCloth_Texture206C101045EB5CDC983082ADB8644E43.tmp' to '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/UpperCloth_Texture.uasset'
+[2020.12.05-08.40.55:653][315]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/NewFolder/Pants_Mat" FILE="../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Pants_Mat.uasset" SILENT=true
+[2020.12.05-08.40.55:663][315]LogSavePackage: Moving '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Saved/Pants_Mat116E76074B77FEBA504339B0293E6A0B.tmp' to '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Pants_Mat.uasset'
+[2020.12.05-08.40.55:668][315]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/NewFolder/BottomCloth_Texture" FILE="../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/BottomCloth_Texture.uasset" SILENT=true
+[2020.12.05-08.40.55:688][315]LogSavePackage: Moving '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Saved/BottomCloth_Texture67068A3B4F265FDF583B4AB1829B9DFC.tmp' to '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/BottomCloth_Texture.uasset'
+[2020.12.05-08.40.55:693][315]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/NewFolder/Shoes_Mat" FILE="../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Shoes_Mat.uasset" SILENT=true
+[2020.12.05-08.40.55:701][315]LogSavePackage: Moving '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Saved/Shoes_Mat09203A6B45B3298393FCCD9DBF27F5B7.tmp' to '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Shoes_Mat.uasset'
+[2020.12.05-08.40.55:706][315]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/NewFolder/Shoes_Texture" FILE="../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Shoes_Texture.uasset" SILENT=true
+[2020.12.05-08.40.55:723][315]LogSavePackage: Moving '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Saved/Shoes_Texture765AAC1B4FF89796C568E89120A44B9E.tmp' to '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Shoes_Texture.uasset'
+[2020.12.05-08.40.55:729][315]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/NewFolder/Socks_Mat" FILE="../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Socks_Mat.uasset" SILENT=true
+[2020.12.05-08.40.55:735][315]LogSavePackage: Moving '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Saved/Socks_MatD5C8473E4FD391341DB9729093470246.tmp' to '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Socks_Mat.uasset'
+[2020.12.05-08.40.55:740][315]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/NewFolder/Socks_Texture" FILE="../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Socks_Texture.uasset" SILENT=true
+[2020.12.05-08.40.55:758][315]LogSavePackage: Moving '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Saved/Socks_Texture4EE9B6B649E077D676F7BEB23731E880.tmp' to '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Socks_Texture.uasset'
+[2020.12.05-08.40.55:763][315]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/NewFolder/Helmet_Mat" FILE="../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Helmet_Mat.uasset" SILENT=true
+[2020.12.05-08.40.55:771][315]LogSavePackage: Moving '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Saved/Helmet_Mat18F1F7104B4D6916852376AD31948DC4.tmp' to '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Helmet_Mat.uasset'
+[2020.12.05-08.40.55:776][315]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/NewFolder/Helmet_Texture" FILE="../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Helmet_Texture.uasset" SILENT=true
+[2020.12.05-08.40.55:795][315]LogSavePackage: Moving '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Saved/Helmet_Texture3C30AE09420BDA73417222917BB48998.tmp' to '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Helmet_Texture.uasset'
+[2020.12.05-08.40.55:801][315]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/NewFolder/Eyebrow_Mat" FILE="../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Eyebrow_Mat.uasset" SILENT=true
+[2020.12.05-08.40.55:809][315]LogSavePackage: Moving '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Saved/Eyebrow_Mat8441F5014530FDD43110C0A0F2E1DD72.tmp' to '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Eyebrow_Mat.uasset'
+[2020.12.05-08.40.55:814][315]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/NewFolder/Eyebrow_Texture" FILE="../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Eyebrow_Texture.uasset" SILENT=true
+[2020.12.05-08.40.55:831][315]LogSavePackage: Moving '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Saved/Eyebrow_Texture33F4621F4D39B921B911A7A575CFA273.tmp' to '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Eyebrow_Texture.uasset'
+[2020.12.05-08.40.55:836][315]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/NewFolder/Eye_Mat" FILE="../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Eye_Mat.uasset" SILENT=true
+[2020.12.05-08.40.55:842][315]LogSavePackage: Moving '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Saved/Eye_Mat032CD1BB4CEF7CD0D346BE9C2ED85BE8.tmp' to '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Eye_Mat.uasset'
+[2020.12.05-08.40.55:847][315]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/NewFolder/Eye_Texture" FILE="../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Eye_Texture.uasset" SILENT=true
+[2020.12.05-08.40.55:867][315]LogSavePackage: Moving '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Saved/Eye_TextureBE9EDCD24B988E2B6D13BDB0634F7BBB.tmp' to '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Eye_Texture.uasset'
+[2020.12.05-08.40.55:870][315]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/NewFolder/Character_Rad_Skeleton" FILE="../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Character_Rad_Skeleton.uasset" SILENT=true
+[2020.12.05-08.40.55:879][315]LogSavePackage: Moving '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Saved/Character_Rad_Skeleton2643B0C840812BE16E7753B5565AD589.tmp' to '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Character_Rad_Skeleton.uasset'
+[2020.12.05-08.40.55:904][315]LogSavePackage: Moving '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Saved/Character_Rad_PhysicsAssetB4EDFAC64B7286D1F1ABFBAF47CB3875.tmp' to '../../../../../../Project/ParkourGamePJ/ParkourUnreal/Platformer_PJ/Content/NewFolder/Character_Rad_PhysicsAsset.uasset'
+[2020.12.05-08.40.55:934][315]AssetCheck: New page: 애셋 저장: 애셋이 다수입니다.
+[2020.12.05-08.40.55:934][315]LogContentValidation: Display: SkeletalMesh /Game/NewFolder/Character_Rad.Character_Rad 유효성 검사
+[2020.12.05-08.40.55:934][315]LogContentValidation: Display: Material /Game/NewFolder/Body_Mat.Body_Mat 유효성 검사
+[2020.12.05-08.40.55:934][315]LogContentValidation: Display: Texture2D /Game/NewFolder/Body_Texture.Body_Texture 유효성 검사
+[2020.12.05-08.40.55:934][315]LogContentValidation: Display: Material /Game/NewFolder/Hoodie_Mat.Hoodie_Mat 유효성 검사
+[2020.12.05-08.40.55:934][315]LogContentValidation: Display: Texture2D /Game/NewFolder/UpperCloth_Texture.UpperCloth_Texture 유효성 검사
+[2020.12.05-08.40.55:935][315]LogContentValidation: Display: Material /Game/NewFolder/Pants_Mat.Pants_Mat 유효성 검사
+[2020.12.05-08.40.55:935][315]LogContentValidation: Display: Texture2D /Game/NewFolder/BottomCloth_Texture.BottomCloth_Texture 유효성 검사
+[2020.12.05-08.40.55:935][315]LogContentValidation: Display: Material /Game/NewFolder/Shoes_Mat.Shoes_Mat 유효성 검사
+[2020.12.05-08.40.55:935][315]LogContentValidation: Display: Texture2D /Game/NewFolder/Shoes_Texture.Shoes_Texture 유효성 검사
+[2020.12.05-08.40.55:935][315]LogContentValidation: Display: Material /Game/NewFolder/Socks_Mat.Socks_Mat 유효성 검사
+[2020.12.05-08.40.55:935][315]LogContentValidation: Display: Texture2D /Game/NewFolder/Socks_Texture.Socks_Texture 유효성 검사
+[2020.12.05-08.40.55:935][315]LogContentValidation: Display: Material /Game/NewFolder/Helmet_Mat.Helmet_Mat 유효성 검사
+[2020.12.05-08.40.55:935][315]LogContentValidation: Display: Texture2D /Game/NewFolder/Helmet_Texture.Helmet_Texture 유효성 검사
+[2020.12.05-08.40.55:935][315]LogContentValidation: Display: Material /Game/NewFolder/Eyebrow_Mat.Eyebrow_Mat 유효성 검사
+[2020.12.05-08.40.55:935][315]LogContentValidation: Display: Texture2D /Game/NewFolder/Eyebrow_Texture.Eyebrow_Texture 유효성 검사
+[2020.12.05-08.40.55:935][315]LogContentValidation: Display: Material /Game/NewFolder/Eye_Mat.Eye_Mat 유효성 검사
+[2020.12.05-08.40.55:935][315]LogContentValidation: Display: Texture2D /Game/NewFolder/Eye_Texture.Eye_Texture 유효성 검사
+[2020.12.05-08.40.55:935][315]LogContentValidation: Display: Skeleton /Game/NewFolder/Character_Rad_Skeleton.Character_Rad_Skeleton 유효성 검사
+[2020.12.05-08.40.55:935][315]LogContentValidation: Display: PhysicsAsset /Game/NewFolder/Character_Rad_PhysicsAsset.Character_Rad_PhysicsAsset 유효성 검사
