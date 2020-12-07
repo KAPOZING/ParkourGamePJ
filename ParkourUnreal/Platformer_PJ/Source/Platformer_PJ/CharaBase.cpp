@@ -54,8 +54,8 @@ void ACharaBase::SetupPlayerInputComponent(class UInputComponent* PlayerInputCom
 {
 	// Set up gameplay key bindings
 	check(PlayerInputComponent);
-	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
-	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
+	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharaBase::StartJump);
+	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharaBase::EndJump);
 
 	PlayerInputComponent->BindAxis("MoveForward", this, &ACharaBase::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ACharaBase::MoveRight);
@@ -76,20 +76,56 @@ void ACharaBase::SetupPlayerInputComponent(class UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &ACharaBase::OnResetVR);
 }
 
+void ACharaBase::StartJump()
+{
+	JumpPressedTime = 0.0f;
+	_IsJumpPressed = true;
+}
+
+void ACharaBase::EndJump()
+{
+	float velocity = ShortJumpVelocity;
+	if (JumpPressedTime >= LongJumpPressedTime)
+	{
+		velocity = LongJumpVelocity;
+	}
+
+	JumpByVelocity(velocity);
+}
 
 void ACharaBase::OnResetVR()
 {
 	UHeadMountedDisplayFunctionLibrary::ResetOrientationAndPosition();
 }
+void ACharaBase::Tick(float DeltaSeconds)
+{
+	if (_IsJumpPressed)
+	{
+		JumpPressedTime += DeltaSeconds;
+	}
+}
+
+void ACharaBase::JumpByVelocity(float ZVelocity)
+{
+	auto movement_component = GetCharacterMovement();
+
+	if (IsValid(movement_component))
+	{
+		movement_component->JumpZVelocity = ZVelocity;
+	}
+
+	Jump();
+}
+
 
 void ACharaBase::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)
 {
-	Jump();
+	StartJump();
 }
 
 void ACharaBase::TouchStopped(ETouchIndex::Type FingerIndex, FVector Location)
 {
-		StopJumping();
+	EndJump();
 }
 
 void ACharaBase::TurnAtRate(float Rate)
@@ -103,6 +139,7 @@ void ACharaBase::LookUpAtRate(float Rate)
 	// calculate delta for this frame from the rate information
 	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
 }
+
 
 void ACharaBase::MoveForward(float Value)
 {

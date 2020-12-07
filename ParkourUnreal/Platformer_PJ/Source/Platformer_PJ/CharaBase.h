@@ -21,6 +21,15 @@ class ACharaBase : public ACharacter
 public:
 	ACharaBase();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameter")
+		float LongJumpPressedTime;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameter")
+		float ShortJumpVelocity;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameter")
+		float LongJumpVelocity;
+
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseTurnRate;
@@ -30,6 +39,12 @@ public:
 	float BaseLookUpRate;
 
 protected:
+	bool _IsJumpPressed = false;
+	float JumpPressedTime = 0.0f;
+
+
+protected:
+	void JumpByVelocity( float ZVelocity);
 
 	/** Resets HMD orientation in VR. */
 	void OnResetVR();
@@ -39,6 +54,9 @@ protected:
 
 	/** Called for side to side input */
 	void MoveRight(float Value);
+
+	void StartJump();
+	void EndJump();
 
 	/** 
 	 * Called via input to turn at a given rate. 
@@ -62,6 +80,7 @@ protected:
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	// End of APawn interface
+	virtual void Tick(float DeltaSeconds) override;
 
 public:
 	/** Returns CameraBoom subobject **/
