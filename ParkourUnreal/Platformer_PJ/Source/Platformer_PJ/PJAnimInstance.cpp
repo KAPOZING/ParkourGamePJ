@@ -10,12 +10,8 @@ void UPJAnimInstance::NativeUpdateAnimation(float _delta)
 
 	if (IsValid(_OwnerChara))
 	{
-		auto movement_component = _OwnerChara->GetMovementComponent();
-		if (IsValid(movement_component))
-		{
-			IsFalling = movement_component->IsFalling();
-			IsJumping = movement_component->Velocity.Z >= 5.0f;
-		}
+		IsFalling = _OwnerChara->IsFalling;
+		IsJumping = _OwnerChara->IsJumping;
 	}
 }
 

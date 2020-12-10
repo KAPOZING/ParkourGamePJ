@@ -127,6 +127,14 @@ void ACharaBase::Tick(float DeltaSeconds)
 
 void ACharaBase::UpdateMovement(float _delta)
 {
+	auto movement_component = GetMovementComponent();
+	if (IsValid(movement_component))
+	{
+		float velocity_z = movement_component->Velocity.Z;
+		IsFalling = movement_component->IsFalling();
+		IsJumping = velocity_z >= 5.0f;
+	}
+
 	if (IsJumpPressed)
 	{
 		JumpPressedTime += _delta;
@@ -137,6 +145,14 @@ void ACharaBase::UpdateMovement(float _delta)
 	}
 
 	UpdateRotationRate(_delta);
+}
+
+bool ACharaBase::CanJumpInternal_Implementation() const
+{
+	if (IsJumping || IsFalling)
+		return false;
+
+	return Super::CanJumpInternal_Implementation();
 }
 
 void ACharaBase::UpdateRotationRate(float _delta)
