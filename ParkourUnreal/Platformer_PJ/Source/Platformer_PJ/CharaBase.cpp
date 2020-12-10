@@ -8,6 +8,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "PJAnimInstance.h"
 
 //////////////////////////////////////////////////////////////////////////
 // APlatformer_PJCharacter
@@ -46,9 +47,17 @@ ACharaBase::ACharaBase()
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
 }
+void ACharaBase::BeginPlay()
+{
+	Super::BeginPlay();
 
-//////////////////////////////////////////////////////////////////////////
-// Input
+	auto anim_instance = GetAnimInstance();
+
+	if (IsValid(anim_instance))
+	{
+		anim_instance->BindChara(this);
+	}
+}
 
 void ACharaBase::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 {
@@ -76,10 +85,22 @@ void ACharaBase::SetupPlayerInputComponent(class UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &ACharaBase::OnResetVR);
 }
 
+UPJAnimInstance* ACharaBase::GetAnimInstance() const
+{
+	auto mesh = GetMesh();
+
+	if (IsValid(mesh))
+	{
+		return Cast<UPJAnimInstance>(mesh->GetAnimInstance());
+	}
+
+	return nullptr;
+}
+
 void ACharaBase::StartJump()
 {
 	JumpPressedTime = 0.0f;
-	_IsJumpPressed = true;
+	IsJumpPressed = true;
 }
 
 void ACharaBase::EndJump()
@@ -91,6 +112,8 @@ void ACharaBase::EndJump()
 	}
 
 	JumpByVelocity(velocity);
+
+	IsJumpPressed = false;
 }
 
 void ACharaBase::OnResetVR()
@@ -99,9 +122,37 @@ void ACharaBase::OnResetVR()
 }
 void ACharaBase::Tick(float DeltaSeconds)
 {
-	if (_IsJumpPressed)
+	UpdateMovement(DeltaSeconds);
+}
+
+void ACharaBase::UpdateMovement(float _delta)
+{
+	if (IsJumpPressed)
 	{
-		JumpPressedTime += DeltaSeconds;
+		JumpPressedTime += _delta;
+		if (JumpPressedTime >= LongJumpPressedTime)
+		{
+			EndJump();
+		}
+	}
+
+	UpdateRotationRate(_delta);
+}
+
+void ACharaBase::UpdateRotationRate(float _delta)
+{
+	FVector velocity = GetVelocity();
+
+	float rotation_rate = StandRotateRate;
+	if (  velocity.Size() >= 200.0f)
+	{
+		rotation_rate = WalkRotateRate;
+	}
+
+	auto movement_component = GetCharacterMovement();
+	if (IsValid(movement_component))
+	{
+		movement_component->RotationRate = FRotator(0, rotation_rate, 0);
 	}
 }
 

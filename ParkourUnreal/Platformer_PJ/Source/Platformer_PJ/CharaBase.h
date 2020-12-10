@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "CharaBase.generated.h"
 
+class UPJAnimInstance;
+
 UCLASS(config=Game)
 class ACharaBase : public ACharacter
 {
@@ -30,6 +32,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameter")
 		float LongJumpVelocity;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameter")
+		float StandRotateRate;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameter")
+		float WalkRotateRate;
+
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseTurnRate;
@@ -38,9 +46,15 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseLookUpRate;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		bool IsJumpPressed = false;
+
 protected:
-	bool _IsJumpPressed = false;
 	float JumpPressedTime = 0.0f;
+
+
+public:
+	UPJAnimInstance* GetAnimInstance() const;
 
 
 protected:
@@ -54,6 +68,9 @@ protected:
 
 	/** Called for side to side input */
 	void MoveRight(float Value);
+
+	void UpdateMovement(float _delta);
+	void UpdateRotationRate( float _delta);
 
 	void StartJump();
 	void EndJump();
@@ -77,6 +94,7 @@ protected:
 	void TouchStopped(ETouchIndex::Type FingerIndex, FVector Location);
 
 protected:
+	virtual void BeginPlay() override;
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	// End of APawn interface
