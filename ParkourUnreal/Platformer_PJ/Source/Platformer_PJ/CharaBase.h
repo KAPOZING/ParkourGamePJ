@@ -49,13 +49,19 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		bool IsJumpPressed = false;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		bool IsFalling = false;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		bool IsJumping = false;
+
+
 protected:
 	float JumpPressedTime = 0.0f;
 
 
 public:
 	UPJAnimInstance* GetAnimInstance() const;
-
 
 protected:
 	void JumpByVelocity( float ZVelocity);
@@ -99,6 +105,8 @@ protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	// End of APawn interface
 	virtual void Tick(float DeltaSeconds) override;
+
+	virtual bool CanJumpInternal_Implementation() const override;
 
 public:
 	/** Returns CameraBoom subobject **/
