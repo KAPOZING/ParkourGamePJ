@@ -1,7 +1,7 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "PJAnimInstance.h"
-#include "CharaBase.h"
+#include "Chara/CharaBase.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 void UPJAnimInstance::NativeUpdateAnimation(float _delta)

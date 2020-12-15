@@ -5,6 +5,7 @@
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
+#include "Chara/PJCharaMovementComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -13,7 +14,8 @@
 //////////////////////////////////////////////////////////////////////////
 // APlatformer_PJCharacter
 
-ACharaBase::ACharaBase()
+ACharaBase::ACharaBase(const FObjectInitializer& ObjectInitializer)
+	: Super( ObjectInitializer.SetDefaultSubobjectClass<UPJCharaMovementComponent>(ACharacter::CharacterMovementComponentName))
 {
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
@@ -44,9 +46,8 @@ ACharaBase::ACharaBase()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
-	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
-	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
 }
+
 void ACharaBase::BeginPlay()
 {
 	Super::BeginPlay();
@@ -59,30 +60,24 @@ void ACharaBase::BeginPlay()
 	}
 }
 
-void ACharaBase::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
+void ACharaBase::ChangeControlType(EControlType _type)
 {
-	// Set up gameplay key bindings
-	check(PlayerInputComponent);
-	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharaBase::StartJump);
-	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharaBase::EndJump);
+	CurrentControlType = _type;
 
-	PlayerInputComponent->BindAxis("MoveForward", this, &ACharaBase::MoveForward);
-	PlayerInputComponent->BindAxis("MoveRight", this, &ACharaBase::MoveRight);
+	auto movement_component = Cast<UPJCharaMovementComponent>( GetMovementComponent());
+	if (IsValid(movement_component))
+	{
+		switch (CurrentControlType)
+		{
+		case EControlType::Normal:
+			movement_component->MaxAcceleration = NormalControlTypeAcceleration;
+			break;
 
-	// We have 2 versions of the rotation bindings to handle different kinds of devices differently
-	// "turn" handles devices that provide an absolute delta, such as a mouse.
-	// "turnrate" is for devices that we choose to treat as a rate of change, such as an analog joystick
-	PlayerInputComponent->BindAxis("Turn", this, &APawn::AddControllerYawInput);
-	PlayerInputComponent->BindAxis("TurnRate", this, &ACharaBase::TurnAtRate);
-	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
-	PlayerInputComponent->BindAxis("LookUpRate", this, &ACharaBase::LookUpAtRate);
-
-	// handle touch devices
-	PlayerInputComponent->BindTouch(IE_Pressed, this, &ACharaBase::TouchStarted);
-	PlayerInputComponent->BindTouch(IE_Released, this, &ACharaBase::TouchStopped);
-
-	// VR headset functionality
-	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &ACharaBase::OnResetVR);
+		case EControlType::AccelRunning:
+			movement_component->MaxAcceleration = 100000.0f;
+			break;
+		}
+	}
 }
 
 UPJAnimInstance* ACharaBase::GetAnimInstance() const
@@ -116,10 +111,6 @@ void ACharaBase::EndJump()
 	IsJumpPressed = false;
 }
 
-void ACharaBase::OnResetVR()
-{
-	UHeadMountedDisplayFunctionLibrary::ResetOrientationAndPosition();
-}
 void ACharaBase::Tick(float DeltaSeconds)
 {
 	UpdateMovement(DeltaSeconds);
@@ -142,6 +133,11 @@ void ACharaBase::UpdateMovement(float _delta)
 		{
 			EndJump();
 		}
+	}
+
+	if (CurrentControlType == EControlType::AccelRunning)
+	{
+		AddMovementInput(GetActorForwardVector(), 60.0f);
 	}
 
 	UpdateRotationRate(_delta);

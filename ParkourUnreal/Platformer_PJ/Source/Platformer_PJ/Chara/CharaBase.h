@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Common/Enum/ControlType.h"
 #include "CharaBase.generated.h"
 
 class UPJAnimInstance;
@@ -21,7 +22,7 @@ class ACharaBase : public ACharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FollowCamera;
 public:
-	ACharaBase();
+	ACharaBase( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameter")
 		float LongJumpPressedTime;
@@ -37,6 +38,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameter")
 		float WalkRotateRate;
+
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
@@ -58,16 +60,19 @@ public:
 
 protected:
 	float JumpPressedTime = 0.0f;
+	float NormalControlTypeAcceleration = 1024.0f;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		EControlType	CurrentControlType = EControlType::Normal;
 
 public:
 	UPJAnimInstance* GetAnimInstance() const;
 
+	UFUNCTION(BlueprintCallable)
+		void	ChangeControlType(EControlType _type);
+
 protected:
 	void JumpByVelocity( float ZVelocity);
-
-	/** Resets HMD orientation in VR. */
-	void OnResetVR();
 
 	/** Called for forwards/backward input */
 	void MoveForward(float Value);
@@ -80,6 +85,17 @@ protected:
 
 	void StartJump();
 	void EndJump();
+
+
+	// Input Event
+	void INPUT_OnAxis_MoveForward( float _value);
+	void INPUT_OnAxis_MoveRight(float _value);
+
+	void INPUT_OnPressed_Jump();
+	void INPUT_OnReleased_Jump();
+	void INPUT_OnPressed_AccelRunning();
+	void INPUT_OnReleased_AccelRunning();
+
 
 	/** 
 	 * Called via input to turn at a given rate. 
