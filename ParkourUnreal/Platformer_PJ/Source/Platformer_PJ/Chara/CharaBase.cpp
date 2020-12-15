@@ -137,7 +137,7 @@ void ACharaBase::UpdateMovement(float _delta)
 
 	if (CurrentControlType == EControlType::AccelRunning)
 	{
-		AddMovementInput(GetActorForwardVector(), 60.0f);
+		AddMovementInput(GetActorForwardVector(), 1.0f, true);
 	}
 
 	UpdateRotationRate(_delta);
