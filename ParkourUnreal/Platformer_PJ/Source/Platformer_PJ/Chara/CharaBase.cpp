@@ -113,6 +113,8 @@ void ACharaBase::EndJump()
 
 void ACharaBase::Tick(float DeltaSeconds)
 {
+	Super::Tick(DeltaSeconds);
+
 	UpdateMovement(DeltaSeconds);
 }
 
@@ -138,6 +140,19 @@ void ACharaBase::UpdateMovement(float _delta)
 	if (CurrentControlType == EControlType::AccelRunning)
 	{
 		AddMovementInput(GetActorForwardVector(), 1.0f, true);
+
+		if (!FMath::IsNearlyZero(AccelRunningRightInput, FLT_EPSILON))
+		{
+			auto rotator = GetActorRotation();
+
+			rotator.Yaw += WalkRotateRate * 2.0f *  AccelRunningRightInput * _delta;
+
+			SetActorRotation(rotator);
+
+			
+			UE_LOG(LogTemp, Log, TEXT("%f"), rotator.Yaw);
+			
+		}
 	}
 
 	UpdateRotationRate(_delta);

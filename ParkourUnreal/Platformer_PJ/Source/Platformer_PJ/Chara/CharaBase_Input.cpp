@@ -53,7 +53,8 @@ void ACharaBase::INPUT_OnAxis_MoveRight(float _value)
 		break;
 
 	case EControlType::AccelRunning:
-		AddMovementInput(GetActorRightVector(), _value);
+		AccelRunningRightInput = _value;
+		//AddMovementInput(GetActorRightVector(), _value);
 		break;
 	}
 }

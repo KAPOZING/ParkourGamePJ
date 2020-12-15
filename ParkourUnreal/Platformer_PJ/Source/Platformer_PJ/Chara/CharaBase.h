@@ -62,6 +62,8 @@ protected:
 	float JumpPressedTime = 0.0f;
 	float NormalControlTypeAcceleration = 1024.0f;
 
+	float AccelRunningRightInput = 0.0f;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		EControlType	CurrentControlType = EControlType::Normal;
 
