@@ -137,6 +137,29 @@ void ACharaBase::UpdateMovement(float _delta)
 		}
 	}
 
+	if (!InputVelocity.IsNearlyZero())
+	{
+		auto current_quat = GetActorRotation().Quaternion();
+
+		FRotator controller_rotator = GetControlRotation();
+		controller_rotator.Pitch = 0.0f;
+		controller_rotator.Roll = 0.0f;
+
+		FVector controller_axis_input = controller_rotator.RotateVector(InputVelocity);
+		
+		auto dest_quat = controller_axis_input.Rotation().Quaternion();
+
+		float yaw_dist = GetActorRotation().Yaw - controller_axis_input.Rotation().Yaw;
+		
+		float dist_factor = FMath::Clamp(( FMath::Abs(((int)yaw_dist % 360 - 180.0f) / 180.0f)), 0.1f, 1.0f );
+
+		UE_LOG(LogTemp, Log, TEXT("%f"), dist_factor);
+
+		SetActorRotation(FQuat::Slerp(current_quat, dest_quat, _delta * dist_factor * 10.0f).Rotator());
+
+		AddMovementInput(GetActorForwardVector(), 1.0f, true);
+	}
+
 	if (CurrentControlType == EControlType::AccelRunning)
 	{
 		AddMovementInput(GetActorForwardVector(), 1.0f, true);
@@ -149,9 +172,6 @@ void ACharaBase::UpdateMovement(float _delta)
 
 			SetActorRotation(rotator);
 
-			
-			UE_LOG(LogTemp, Log, TEXT("%f"), rotator.Yaw);
-			
 		}
 	}
 

@@ -35,7 +35,8 @@ void ACharaBase::INPUT_OnAxis_MoveForward(float _value)
 	switch (CurrentControlType)
 	{
 	case EControlType::Normal:
-		MoveForward(_value);
+		InputVelocity.X = _value;
+		// MoveForward(_value);
 		break;
 
 	case EControlType::AccelRunning:
@@ -49,7 +50,8 @@ void ACharaBase::INPUT_OnAxis_MoveRight(float _value)
 	switch (CurrentControlType)
 	{
 	case EControlType::Normal:
-		MoveRight(_value);
+		InputVelocity.Y = _value;
+		//MoveRight(_value);
 		break;
 
 	case EControlType::AccelRunning:

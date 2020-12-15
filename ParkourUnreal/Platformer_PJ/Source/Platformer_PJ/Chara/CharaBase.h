@@ -63,6 +63,7 @@ protected:
 	float NormalControlTypeAcceleration = 1024.0f;
 
 	float AccelRunningRightInput = 0.0f;
+	FVector InputVelocity = FVector::ZeroVector;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		EControlType	CurrentControlType = EControlType::Normal;
