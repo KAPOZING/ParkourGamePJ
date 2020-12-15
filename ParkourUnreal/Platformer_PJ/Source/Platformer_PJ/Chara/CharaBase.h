@@ -39,6 +39,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameter")
 		float WalkRotateRate;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameter")
+		float NormalControlTypeAcceleration = 1024.0f;
+
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
@@ -60,7 +63,6 @@ public:
 
 protected:
 	float JumpPressedTime = 0.0f;
-	float NormalControlTypeAcceleration = 1024.0f;
 
 	float AccelRunningRightInput = 0.0f;
 	FVector InputVelocity = FVector::ZeroVector;

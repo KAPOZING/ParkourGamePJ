@@ -32,33 +32,13 @@ void ACharaBase::SetupPlayerInputComponent(class UInputComponent* PlayerInputCom
 
 void ACharaBase::INPUT_OnAxis_MoveForward(float _value)
 {
-	switch (CurrentControlType)
-	{
-	case EControlType::Normal:
-		InputVelocity.X = _value;
-		// MoveForward(_value);
-		break;
-
-	case EControlType::AccelRunning:
-		// Skip
-		break;
-	}
+	InputVelocity.X = _value;
+	// MoveForward(_value);
 }
 
 void ACharaBase::INPUT_OnAxis_MoveRight(float _value)
 {
-	switch (CurrentControlType)
-	{
-	case EControlType::Normal:
-		InputVelocity.Y = _value;
-		//MoveRight(_value);
-		break;
-
-	case EControlType::AccelRunning:
-		AccelRunningRightInput = _value;
-		//AddMovementInput(GetActorRightVector(), _value);
-		break;
-	}
+	InputVelocity.Y = _value;
 }
 
 void ACharaBase::INPUT_OnPressed_Jump()
