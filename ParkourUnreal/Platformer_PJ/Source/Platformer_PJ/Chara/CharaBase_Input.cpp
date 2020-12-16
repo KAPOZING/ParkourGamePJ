@@ -15,6 +15,9 @@ void ACharaBase::SetupPlayerInputComponent(class UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharaBase::INPUT_OnPressed_Jump);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharaBase::INPUT_OnReleased_Jump);
 
+	PlayerInputComponent->BindAction("Brake", IE_Pressed, this, &ACharaBase::INPUT_OnPressed_Brake);
+	PlayerInputComponent->BindAction("Brake", IE_Released, this, &ACharaBase::INPUT_OnReleased_Brake);
+
 	PlayerInputComponent->BindAction("AccelRunning", IE_Pressed, this, &ACharaBase::INPUT_OnPressed_AccelRunning);
 	PlayerInputComponent->BindAction("AccelRunning", IE_Released, this, &ACharaBase::INPUT_OnReleased_AccelRunning);
 
@@ -59,4 +62,18 @@ void ACharaBase::INPUT_OnPressed_AccelRunning()
 void ACharaBase::INPUT_OnReleased_AccelRunning()
 {
 	ChangeControlType(EControlType::Normal);
+}
+
+void ACharaBase::INPUT_OnPressed_Brake()
+{
+//	IsBrakePressed = true;
+	if (GetVelocity().Size() > 20.0f)
+	{
+		IsBraking = true;
+	}
+}
+
+void ACharaBase::INPUT_OnReleased_Brake()
+{
+//	IsBrakePressed = false;
 }

@@ -23,6 +23,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool	IsFalling = false;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool	IsBraking = false;
+
 public:
 	UFUNCTION(BlueprintCallable)
 		void BindChara(ACharaBase* _owner);

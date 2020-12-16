@@ -58,6 +58,12 @@ public:
 		bool IsJumpPressed = false;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		bool IsBrakePressed = false;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		bool IsBraking = false;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		bool IsFalling = false;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
@@ -104,6 +110,10 @@ protected:
 
 	void INPUT_OnPressed_Jump();
 	void INPUT_OnReleased_Jump();
+
+	void INPUT_OnPressed_Brake();
+	void INPUT_OnReleased_Brake();
+
 	void INPUT_OnPressed_AccelRunning();
 	void INPUT_OnReleased_AccelRunning();
 

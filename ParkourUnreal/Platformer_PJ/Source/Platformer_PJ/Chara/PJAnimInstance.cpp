@@ -12,6 +12,7 @@ void UPJAnimInstance::NativeUpdateAnimation(float _delta)
 	{
 		IsFalling = _OwnerChara->IsFalling;
 		IsJumping = _OwnerChara->IsJumping;
+		IsBraking = _OwnerChara->IsBraking;
 	}
 }
 

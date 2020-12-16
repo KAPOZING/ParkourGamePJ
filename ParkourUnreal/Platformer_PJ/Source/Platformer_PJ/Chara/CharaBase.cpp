@@ -140,28 +140,45 @@ void ACharaBase::UpdateMovement(float _delta)
 			EndJump();
 		}
 	}
-
-	if (CurrentControlType == EControlType::AccelRunning)
+	
+	if (!IsBraking)
 	{
-		AddMovementInput(GetActorForwardVector(), 1.0f, true);
-
-		if (!FMath::IsNearlyZero(InputVelocity.Y, FLT_EPSILON))
+		if (CurrentControlType == EControlType::AccelRunning)
 		{
-			auto rotator = GetActorRotation();
+			AddMovementInput(GetActorForwardVector(), 1.0f, true);
 
-			rotator.Yaw +=  AccelerationRunningRotationRate * 2.0f *  InputVelocity.Y * _delta;
+			if (!FMath::IsNearlyZero(InputVelocity.Y, FLT_EPSILON))
+			{
+				auto rotator = GetActorRotation();
 
-			SetActorRotation(rotator);
+				rotator.Yaw += AccelerationRunningRotationRate * 2.0f * InputVelocity.Y * _delta;
 
+				SetActorRotation(rotator);
+
+			}
 		}
-	}
-	else if (!InputVelocity.IsNearlyZero())
-	{
-		UpdateMovementByInputVelocity(_delta);
+		else if (!InputVelocity.IsNearlyZero())
+		{
+			UpdateMovementByInputVelocity(_delta);
+		}
 	}
 
 	UpdateRotationRate(_delta);
 	CalcMaxAccelration();
+
+	if (IsBraking)
+	{
+		if (IsValid(movement_component))
+		{
+			FVector velocity = GetVelocity();
+			movement_component->Velocity = velocity  - (velocity * _delta * 4.0f);
+
+			if (velocity.IsNearlyZero(1.0f))
+			{
+				IsBraking = false;
+			}
+		}
+	}
 }
 
 void ACharaBase::UpdateMovementByInputVelocity(float _delta)
