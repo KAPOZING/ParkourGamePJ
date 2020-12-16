@@ -40,6 +40,9 @@ public:
 		float WalkRotateRate;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameter")
+		float AccelerationRunningRotationRate = 360.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameter")
 		float NormalControlTypeAcceleration = 1024.0f;
 
 
@@ -87,6 +90,9 @@ protected:
 
 	void UpdateMovement(float _delta);
 	void UpdateRotationRate( float _delta);
+	void UpdateMovementByInputVelocity( float _delta);
+
+	void CalcMaxAccelration();
 
 	void StartJump();
 	void EndJump();

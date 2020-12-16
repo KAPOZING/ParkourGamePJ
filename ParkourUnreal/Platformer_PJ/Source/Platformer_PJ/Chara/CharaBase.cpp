@@ -60,24 +60,28 @@ void ACharaBase::BeginPlay()
 	}
 }
 
+void ACharaBase::CalcMaxAccelration()
+{
+	bool is_jumping = IsFalling || IsJumping;
+
+	float proper_max_acceleration = NormalControlTypeAcceleration;
+	if (!is_jumping && CurrentControlType == EControlType::AccelRunning)
+	{
+		proper_max_acceleration = 100000.0f;
+	}
+
+	auto movement_component = Cast<UPJCharaMovementComponent>(GetMovementComponent());
+	if (IsValid(movement_component))
+	{
+		movement_component->MaxAcceleration = proper_max_acceleration;
+	}
+}
+
 void ACharaBase::ChangeControlType(EControlType _type)
 {
 	CurrentControlType = _type;
 
-	auto movement_component = Cast<UPJCharaMovementComponent>( GetMovementComponent());
-	if (IsValid(movement_component))
-	{
-		switch (CurrentControlType)
-		{
-		case EControlType::Normal:
-			movement_component->MaxAcceleration = NormalControlTypeAcceleration;
-			break;
-
-		case EControlType::AccelRunning:
-			movement_component->MaxAcceleration = 100000.0f;
-			break;
-		}
-	}
+	CalcMaxAccelration();
 }
 
 UPJAnimInstance* ACharaBase::GetAnimInstance() const
@@ -145,7 +149,7 @@ void ACharaBase::UpdateMovement(float _delta)
 		{
 			auto rotator = GetActorRotation();
 
-			rotator.Yaw += WalkRotateRate * 2.0f *  InputVelocity.Y * _delta;
+			rotator.Yaw +=  AccelerationRunningRotationRate * 2.0f *  InputVelocity.Y * _delta;
 
 			SetActorRotation(rotator);
 
@@ -153,38 +157,76 @@ void ACharaBase::UpdateMovement(float _delta)
 	}
 	else if (!InputVelocity.IsNearlyZero())
 	{
-		auto current_rot = GetActorRotation();
-		auto current_quat = GetActorRotation().Quaternion();
+		UpdateMovementByInputVelocity(_delta);
+	}
 
-		FRotator controller_rotator = GetControlRotation();
-		controller_rotator.Pitch = 0.0f;
-		controller_rotator.Roll = 0.0f;
+	UpdateRotationRate(_delta);
+	CalcMaxAccelration();
+}
 
-		FVector controller_axis_input = controller_rotator.RotateVector(InputVelocity);
+void ACharaBase::UpdateMovementByInputVelocity(float _delta)
+{
+	auto current_rot = GetActorRotation();
+	auto current_quat = GetActorRotation().Quaternion();
 
-		FRotator dest_rot = controller_axis_input.Rotation();
+	FRotator controller_rotator = GetControlRotation();
+	controller_rotator.Pitch = 0.0f;
+	controller_rotator.Roll = 0.0f;
+
+	FVector controller_axis_input = controller_rotator.RotateVector(InputVelocity);
+
+	FRotator dest_rot = controller_axis_input.Rotation();
+
+	FRotator result;
+	if (current_rot.Equals(dest_rot, 5.0f))
+	{
+		result = dest_rot;
+	}
+	else
+	{
 		auto dest_quat = dest_rot.Quaternion();
-
 		float yaw_dist = dest_rot.Yaw - current_rot.Yaw;
 
+		int dist_remainder = ((int)yaw_dist % 360);
+
+		float yaw_multiple = 0.0f;
+
+		if (dist_remainder > 180)
+		{
+			yaw_multiple = -1.0f;
+		}
+		else if (dist_remainder < -180)
+		{
+			yaw_multiple = 1.0f;
+		}
+		else
+		{
+			yaw_multiple = yaw_dist >= 0.0f ? 1.0f : -1.0f;
+		}
+
+
 		// dist Factor Calc
-		float dist_factor = FMath::Clamp((FMath::Abs(((int)yaw_dist % 360 - 180.0f) / 180.0f)), 0.1f, 1.0f);
+		// float dist_factor = FMath::Clamp((FMath::Abs(((int)yaw_dist % 360 - 180.0f) / 180.0f)), 0.1f, 1.0f);
 
 		float rotate_rate = WalkRotateRate;
 
+		auto movement_component = GetCharacterMovement();
 		if (IsValid(movement_component))
 		{
 			rotate_rate = movement_component->RotationRate.Yaw;
 		}
 
-		SetActorRotation(FQuat::Slerp(current_quat, dest_quat, _delta * dist_factor * rotate_rate * 0.03f).Rotator());
-
-		AddMovementInput(GetActorForwardVector(), 1.0f, true);
+		result = current_rot;
+		result.Yaw += rotate_rate * yaw_multiple * _delta;
 	}
 
-	UpdateRotationRate(_delta);
-}
 
+	SetActorRotation(result);
+
+	//SetActorRotation(FQuat::Slerp(current_quat, dest_quat, _delta * dist_factor * rotate_rate * 0.03f).Rotator());
+
+	AddMovementInput(GetActorForwardVector(), 1.0f, true);
+}
 bool ACharaBase::CanJumpInternal_Implementation() const
 {
 	if (IsJumping || IsFalling)
@@ -200,7 +242,14 @@ void ACharaBase::UpdateRotationRate(float _delta)
 	float rotation_rate = StandRotateRate;
 	if (  velocity.Size() >= 200.0f)
 	{
-		rotation_rate = WalkRotateRate;
+		if (CurrentControlType == EControlType::AccelRunning)
+		{
+			rotation_rate = AccelerationRunningRotationRate;
+		}
+		else
+		{
+			rotation_rate = WalkRotateRate;
+		}
 	}
 
 	auto movement_component = GetCharacterMovement();
