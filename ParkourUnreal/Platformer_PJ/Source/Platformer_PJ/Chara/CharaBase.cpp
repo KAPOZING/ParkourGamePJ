@@ -120,7 +120,7 @@ void ACharaBase::Tick(float DeltaSeconds)
 
 void ACharaBase::UpdateMovement(float _delta)
 {
-	auto movement_component = GetMovementComponent();
+	auto movement_component = GetCharacterMovement();
 	if (IsValid(movement_component))
 	{
 		float velocity_z = movement_component->Velocity.Z;
@@ -137,8 +137,23 @@ void ACharaBase::UpdateMovement(float _delta)
 		}
 	}
 
-	if (!InputVelocity.IsNearlyZero())
+	if (CurrentControlType == EControlType::AccelRunning)
 	{
+		AddMovementInput(GetActorForwardVector(), 1.0f, true);
+
+		if (!FMath::IsNearlyZero(InputVelocity.Y, FLT_EPSILON))
+		{
+			auto rotator = GetActorRotation();
+
+			rotator.Yaw += WalkRotateRate * 2.0f *  InputVelocity.Y * _delta;
+
+			SetActorRotation(rotator);
+
+		}
+	}
+	else if (!InputVelocity.IsNearlyZero())
+	{
+		auto current_rot = GetActorRotation();
 		auto current_quat = GetActorRotation().Quaternion();
 
 		FRotator controller_rotator = GetControlRotation();
@@ -146,33 +161,25 @@ void ACharaBase::UpdateMovement(float _delta)
 		controller_rotator.Roll = 0.0f;
 
 		FVector controller_axis_input = controller_rotator.RotateVector(InputVelocity);
-		
-		auto dest_quat = controller_axis_input.Rotation().Quaternion();
 
-		float yaw_dist = GetActorRotation().Yaw - controller_axis_input.Rotation().Yaw;
-		
-		float dist_factor = FMath::Clamp(( FMath::Abs(((int)yaw_dist % 360 - 180.0f) / 180.0f)), 0.1f, 1.0f );
+		FRotator dest_rot = controller_axis_input.Rotation();
+		auto dest_quat = dest_rot.Quaternion();
 
-		UE_LOG(LogTemp, Log, TEXT("%f"), dist_factor);
+		float yaw_dist = dest_rot.Yaw - current_rot.Yaw;
 
-		SetActorRotation(FQuat::Slerp(current_quat, dest_quat, _delta * dist_factor * 10.0f).Rotator());
+		// dist Factor Calc
+		float dist_factor = FMath::Clamp((FMath::Abs(((int)yaw_dist % 360 - 180.0f) / 180.0f)), 0.1f, 1.0f);
 
-		AddMovementInput(GetActorForwardVector(), 1.0f, true);
-	}
+		float rotate_rate = WalkRotateRate;
 
-	if (CurrentControlType == EControlType::AccelRunning)
-	{
-		AddMovementInput(GetActorForwardVector(), 1.0f, true);
-
-		if (!FMath::IsNearlyZero(AccelRunningRightInput, FLT_EPSILON))
+		if (IsValid(movement_component))
 		{
-			auto rotator = GetActorRotation();
-
-			rotator.Yaw += WalkRotateRate * 2.0f *  AccelRunningRightInput * _delta;
-
-			SetActorRotation(rotator);
-
+			rotate_rate = movement_component->RotationRate.Yaw;
 		}
+
+		SetActorRotation(FQuat::Slerp(current_quat, dest_quat, _delta * dist_factor * rotate_rate * 0.03f).Rotator());
+
+		AddMovementInput(GetActorForwardVector(), 1.0f, true);
 	}
 
 	UpdateRotationRate(_delta);
